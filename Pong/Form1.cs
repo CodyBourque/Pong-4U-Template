@@ -66,7 +66,7 @@ namespace Pong
         public Form1()
         {
             InitializeComponent();
-            SetParameters();        
+            SetParameters();
         }
 
         // -- YOU DO NOT NEED TO MAKE CHANGES TO THIS METHOD
@@ -109,7 +109,7 @@ namespace Pong
                     break;
             }
         }
-        
+
         // -- YOU DO NOT NEED TO MAKE CHANGES TO THIS METHOD
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
@@ -200,9 +200,9 @@ namespace Pong
             }
             else
             {
-                ballX += BALL_SPEED; 
+                ballX += BALL_SPEED;
             }
-            
+
             if (ballMoveDown == true)
             {
                 ballY += BALL_SPEED;
@@ -244,6 +244,7 @@ namespace Pong
             }
             else if (ballY >= Height - BALL_SIZE)
             {
+                player.Play();
                 ballMoveDown = false;
             }
 
@@ -251,15 +252,15 @@ namespace Pong
 
             #region ball collision with paddles
 
+
             if (ballY > paddle1Y && ballY < paddle1Y + PADDLE_LENGTH && ballX < PADDLE_EDGE + PADDLE_WIDTH) // left paddle collision
             {
-                
-                // TODO play a "paddle hit" sound 
+                player.Play();
                 ballMoveRight = false;
             }
             else if (ballY > paddle2Y && ballY < paddle2Y + PADDLE_LENGTH && ballX + BALL_SIZE > this.Width - PADDLE_EDGE - PADDLE_WIDTH / 2) // right paddle collision
             {
-                // TODO play a "paddle hit" sound 
+                player.Play();
                 ballMoveRight = true;
             }
 
@@ -271,7 +272,7 @@ namespace Pong
 
             if (ballX < 0)
             {
-                
+
                 player.Play();
                 player2Score += 1;
                 player2Label.Text = "Player 2: " + player2Score;
@@ -285,7 +286,8 @@ namespace Pong
                     SetParameters();
                 }
 
-            } else if (ballX == this.Width - BALL_SIZE)
+            }
+            else if (ballX == this.Width - BALL_SIZE)
             {
                 player.Play();
                 player1Score += 1;
@@ -302,11 +304,11 @@ namespace Pong
             }
 
             #endregion
-            
+
             //refresh the screen, which causes the Form1_Paint method to run
             this.Refresh();
         }
-        
+
         /// <summary>
         /// Displays a message for the winner when the game is over and allows the user to either select
         /// to play again or end the program
@@ -318,7 +320,7 @@ namespace Pong
 
             gameUpdateLoop.Stop();
             startLabel.Visible = true;
-            startLabel.Text = "get rekt " + loser + " u skrub"; 
+            startLabel.Text = "get rekt " + loser + " u skrub";
             Refresh();
             Thread.Sleep(2000);
             startLabel.Text = "would u liek to go again casul? (Y/N)";
